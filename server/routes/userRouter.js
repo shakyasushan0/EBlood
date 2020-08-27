@@ -57,7 +57,9 @@ userRouter.post("/login", (req, res, next) => {
           age,
           contact,
         } = user;
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET);
+        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
+          expiresIn: "7d",
+        });
         if (matchedUser) {
           res.setHeader("Content-Type", "application/josn");
           res.statusCode = 200;

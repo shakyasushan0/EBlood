@@ -127,7 +127,9 @@ const DrawerStack = ({navigation}) => {
       drawerContent={(props) => <DrawerContent {...props} />}
       drawerContentOptions={{
         activeTintColor: '#e91e63',
-      }}>
+      }}
+      initialRouteName="Map"
+      drawerType="back">
       <Drawer.Screen
         name="Map"
         component={MapStack}

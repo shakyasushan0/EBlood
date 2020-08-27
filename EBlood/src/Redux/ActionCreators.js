@@ -13,3 +13,11 @@ export const clearUser = () => {
     payload: null,
   };
 };
+// DOnors
+
+export const addDonor = (data) => {
+  return {
+    type: ActionTypes.ADD_DONOR,
+    payload: data,
+  };
+};
