@@ -10,6 +10,7 @@ import DonorScreen from '../Screens/DonorScreen';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTheme, TouchableRipple} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
+import DonorDetail from '../Screens/DonorDetailScreen';
 
 const ProfileStack = ({navigation}) => {
   const {colors} = useTheme();
@@ -113,6 +114,26 @@ const DonorStack = ({navigation}) => {
             </TouchableRipple>
           ),
           headerTitle: 'DONORS',
+          headerTitleStyle: {color: colors.headerTitle},
+          headerShown: false,
+        }}
+      />
+      <donorStack.Screen
+        name="DonorDetail"
+        component={DonorDetail}
+        options={{
+          headerStyle: {
+            height: 60,
+            backgroundColor: colors.primary,
+          },
+          headerLeft: () => (
+            <TouchableRipple
+              style={{marginLeft: 5}}
+              onPress={() => navigation.openDrawer()}>
+              <Feather name="menu" size={30} color={colors.headerTitle} />
+            </TouchableRipple>
+          ),
+          headerTitle: 'DONOR DETAIL',
           headerTitleStyle: {color: colors.headerTitle},
         }}
       />

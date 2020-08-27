@@ -7,6 +7,13 @@ export const storeUser = (data) => {
   };
 };
 
+export const addCurrentLocation = (data) => {
+  return {
+    type: ActionTypes.ADD_CURRENT_LOCATION,
+    payload: data,
+  };
+};
+
 export const clearUser = () => {
   return {
     type: ActionTypes.CLEAR_USER,

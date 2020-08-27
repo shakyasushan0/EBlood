@@ -19,6 +19,7 @@ import {
 const MapScreen = (props) => {
   const [location, setLocation] = useState({latitude: null, longitude: null});
   const {donors} = useSelector((state) => state.donors);
+  const {user} = useSelector((state) => state.user);
   const dispatch = useDispatch();
   useEffect(() => {
     const hasLocationPermission = requestLocationPermission();
@@ -51,33 +52,35 @@ const MapScreen = (props) => {
           latitudeDelta: 0.015,
           longitudeDelta: 0.0121,
         }}>
-        {donors.map((donor) => {
-          const {bloodGroup} = donor;
-          return (
-            <Marker
-              coordinate={donor.location}
-              image={
-                bloodGroup == 'A+'
-                  ? A_plus
-                  : bloodGroup == 'A-'
-                  ? A_minus
-                  : bloodGroup == 'B+'
-                  ? B_plus
-                  : bloodGroup == 'B-'
-                  ? B_minus
-                  : bloodGroup == 'AB+'
-                  ? AB_plus
-                  : bloodGroup == 'AB-'
-                  ? AB_minus
-                  : bloodGroup == 'O+'
-                  ? O_plus
-                  : O_minus
-              }
-              title={donor.fullName}
-              key={donor._id}
-            />
-          );
-        })}
+        {donors
+          .filter((donor) => donor._id != user._id)
+          .map((donor) => {
+            const {bloodGroup} = donor;
+            return (
+              <Marker
+                coordinate={donor.location}
+                image={
+                  bloodGroup == 'A+'
+                    ? A_plus
+                    : bloodGroup == 'A-'
+                    ? A_minus
+                    : bloodGroup == 'B+'
+                    ? B_plus
+                    : bloodGroup == 'B-'
+                    ? B_minus
+                    : bloodGroup == 'AB+'
+                    ? AB_plus
+                    : bloodGroup == 'AB-'
+                    ? AB_minus
+                    : bloodGroup == 'O+'
+                    ? O_plus
+                    : O_minus
+                }
+                title={donor.fullName}
+                key={donor._id}
+              />
+            );
+          })}
       </MapView>
     );
   } else {

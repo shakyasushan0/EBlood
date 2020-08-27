@@ -21,6 +21,7 @@ const theme = {
     primary: '#d73737',
     success: '#26ae60',
     headerTitle: '#DAE0E2',
+    secondary: '#e91e63',
   },
 };
 

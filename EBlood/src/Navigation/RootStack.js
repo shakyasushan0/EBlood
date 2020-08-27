@@ -1,14 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Auth from './AuthStack';
 import AsyncStorage from '@react-native-community/async-storage';
 import Drawer from './DrawerStack';
 import {useDispatch, useSelector} from 'react-redux';
-import {storeUser, addDonor} from '../Redux/ActionCreators';
-import {View} from 'react-native-animatable';
+import {storeUser, addDonor, addCurrentLocation} from '../Redux/ActionCreators';
+import {requestLocationPermission} from '../util/permissions';
 import SplashScreen from '../Screens/SplashScreen';
-import axios from 'axios';
+import Geolocation from 'react-native-geolocation-service';
+
 import {baseUrl} from '../Constants/urls';
 
 const RootStack = (props) => {
@@ -24,6 +24,23 @@ const RootStack = (props) => {
     const jsonValue = stringValue != null ? JSON.parse(stringValue) : null;
     await dispatch(storeUser(jsonValue));
     getDonors(jsonValue.token);
+    const hasLocationPermission = requestLocationPermission();
+    if (hasLocationPermission) {
+      Geolocation.getCurrentPosition(
+        (position) => {
+          const location = {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude,
+          };
+          dispatch(addCurrentLocation(location));
+        },
+        (error) => {
+          // See error code charts below.
+          console.log(error.code, error.message);
+        },
+        {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
+      );
+    }
     setLoading(false);
   };
   const getDonors = async (token) => {
