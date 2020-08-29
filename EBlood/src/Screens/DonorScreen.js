@@ -36,15 +36,14 @@ const DonorScreen = (props) => {
     return (
       <TouchableRipple>
         <List.Item
-          onPress={() => props.navigation.navigate('DonorDetail')}
+          onPress={() =>
+            props.navigation.navigate('DonorDetail', {
+              selectedDonor: props.item,
+            })
+          }
           title={props.item.fullName}
-          description={<Text>{props.item.bloodGroup}</Text>}
-          left={() => (
-            <Avatar.Image
-              source={donors.avatar ? {uri: donors.avatar} : tempAvatar}
-              size={50}
-            />
-          )}
+          description={<Text>@{props.item.email.split('@')[0]}</Text>}
+          left={() => <Avatar.Text label={props.item.bloodGroup} size={50} />}
           right={() => (
             <Entypo
               name="chevron-right"

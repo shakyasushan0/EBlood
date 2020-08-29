@@ -17,6 +17,27 @@ export const user = (state = {user: {}, currentLocation: {}}, action) => {
         ...state,
         currentLocation: action.payload,
       };
+
+    case ActionTypes.UPDATE_USER:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          fullName: action.payload.fullName,
+          contact: action.payload.fullName,
+          age: action.payload.age,
+          bloodGroup: action.payload.bloodGroup,
+        },
+      };
+
+    case ActionTypes.UPDATE_AVATAR:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          avatar: action.payload.avatar,
+        },
+      };
     default:
       return state;
   }

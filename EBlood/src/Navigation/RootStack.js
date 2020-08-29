@@ -41,6 +41,7 @@ const RootStack = (props) => {
         {enableHighAccuracy: true, timeout: 15000, maximumAge: 10000},
       );
     }
+
     setLoading(false);
   };
   const getDonors = async (token) => {
@@ -59,6 +60,9 @@ const RootStack = (props) => {
   else {
     return (
       <NavigationContainer>{user ? <Drawer /> : <Auth />}</NavigationContainer>
+      // <NavigationContainer>
+      //   <Auth />
+      // </NavigationContainer>
     );
   }
 };

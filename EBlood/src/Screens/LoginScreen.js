@@ -19,7 +19,7 @@ import * as Animatable from 'react-native-animatable';
 import axios from 'axios';
 import {baseUrl} from '../Constants/urls';
 import {useDispatch, useSelector} from 'react-redux';
-import {storeUser} from '../Redux/ActionCreators';
+import {storeUser, clearUser} from '../Redux/ActionCreators';
 import AsyncStorage from '@react-native-community/async-storage';
 const LoginScreen = (props) => {
   const [email, setEmail] = useState('');
@@ -125,7 +125,15 @@ const LoginScreen = (props) => {
                   console.log(e);
                 }
               }}>
-              <Text style={styles.forgotPassword}>Forgot Password?</Text>
+              <Text
+                style={styles.forgotPassword}
+                onPress={() => {
+                  AsyncStorage.clear();
+                  dispatch(clearUser());
+                  console.log('pressed');
+                }}>
+                Forgot Password?
+              </Text>
             </TouchableRipple>
             <View style={styles.buttonContainer}>
               <Button

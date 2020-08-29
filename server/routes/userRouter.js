@@ -94,4 +94,13 @@ userRouter.get("/users", authenticate, (req, res, next) => {
     })
     .catch((err) => res.json(err));
 });
+userRouter.put("/edit", authenticate, (req, res, next) => {
+  User.findByIdAndUpdate(req.user._id, { $set: req.body }, { new: true })
+    .then((user) => {
+      res.status(200).json(user);
+    })
+    .catch((err) => {
+      res.json(err.message);
+    });
+});
 module.exports = userRouter;

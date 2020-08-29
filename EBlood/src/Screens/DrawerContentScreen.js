@@ -42,10 +42,15 @@ const DrawerContent = (props) => {
     <View style={styles.container}>
       <DrawerContentScrollView {...props}>
         <View style={styles.userInfo}>
-          <Avatar.Image
+          {/* <Avatar.Image
             source={user.avatar ? {uri: user.avatar} : tempAvatar}
             size={100}
-          />
+          /> */}
+          {user.avatar ? (
+            <Avatar.Image source={{uri: user.avatar}} size={100} />
+          ) : (
+            <Avatar.Text size={100} label={user.fullName.charAt(0)} />
+          )}
           <View style={styles.info}>
             <Text style={styles.name}>
               {user ? user.fullName : 'LOADING...'}

@@ -34,6 +34,7 @@ const ProfileStack = ({navigation}) => {
           ),
           headerTitle: 'PROFILE',
           headerTitleStyle: {color: colors.headerTitle},
+          headerShown: false,
         }}
       />
     </profStack.Navigator>

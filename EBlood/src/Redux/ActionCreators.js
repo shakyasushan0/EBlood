@@ -7,6 +7,20 @@ export const storeUser = (data) => {
   };
 };
 
+export const updateUser = (data) => {
+  return {
+    type: ActionTypes.UPDATE_USER,
+    payload: data,
+  };
+};
+
+export const updateAvatar = (data) => {
+  return {
+    type: ActionTypes.UPDATE_AVATAR,
+    payload: data,
+  };
+};
+
 export const addCurrentLocation = (data) => {
   return {
     type: ActionTypes.ADD_CURRENT_LOCATION,
