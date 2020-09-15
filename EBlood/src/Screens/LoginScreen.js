@@ -8,6 +8,7 @@ import {
   BackHandler,
   Image,
   SafeAreaView,
+  ToastAndroid,
 } from 'react-native';
 import {
   widthPercentageToDP as wp,
@@ -76,6 +77,23 @@ const LoginScreen = (props) => {
       });
   };
 
+  const resetPassword = () => {
+    if (email.length != 0) {
+      fetch(`${baseUrl}user/reset-password`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({email}),
+      })
+        .then((res) => res.json())
+        .then((res) => ToastAndroid.show(res.message, ToastAndroid.LONG))
+        .catch((err) => alert('Error : ', err));
+    } else {
+      ToastAndroid.show('Email is empty. Please fill in your email!');
+    }
+  };
+
   return (
     <SafeAreaView style={{flex: 1}}>
       <ScrollView>
@@ -113,27 +131,9 @@ const LoginScreen = (props) => {
               onChangeText={(password) => setPassword(password)}
             />
             <TouchableRipple
-              rippleColor="rgba(0, 0, 0, .32)"
-              onPress={async () => {
-                try {
-                  const stringValue = await AsyncStorage.getItem('user');
-                  const jsonValue =
-                    stringValue != null ? JSON.parse(stringValue) : null;
-                  console.log(jsonValue);
-                } catch (e) {
-                  // error reading value
-                  console.log(e);
-                }
-              }}>
-              <Text
-                style={styles.forgotPassword}
-                onPress={() => {
-                  AsyncStorage.clear();
-                  dispatch(clearUser());
-                  console.log('pressed');
-                }}>
-                Forgot Password?
-              </Text>
+              rippleColor={colors.secondary}
+              onPress={() => resetPassword()}>
+              <Text style={styles.forgotPassword}>Forgot Password?</Text>
             </TouchableRipple>
             <View style={styles.buttonContainer}>
               <Button

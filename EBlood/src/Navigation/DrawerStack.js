@@ -11,6 +11,10 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {useTheme, TouchableRipple} from 'react-native-paper';
 import Feather from 'react-native-vector-icons/Feather';
 import DonorDetail from '../Screens/DonorDetailScreen';
+import SentRequest from '../Screens/SentRequestScreen';
+import ReceivedRequest from '../Screens/ReceivedRequestScreen';
+import DonationHistory from '../Screens/DonationHistoryScreen';
+import AccountSetting from '../Screens/AccountSettingScreen';
 
 const ProfileStack = ({navigation}) => {
   const {colors} = useTheme();
@@ -35,6 +39,82 @@ const ProfileStack = ({navigation}) => {
           headerTitle: 'PROFILE',
           headerTitleStyle: {color: colors.headerTitle},
           headerShown: false,
+        }}
+      />
+      <profStack.Screen
+        name="SentRequest"
+        component={SentRequest}
+        options={{
+          headerStyle: {
+            height: 60,
+            backgroundColor: colors.primary,
+          },
+          headerLeft: () => (
+            <TouchableRipple
+              style={{marginLeft: 5}}
+              onPress={() => navigation.openDrawer()}>
+              <Feather name="menu" size={30} color={colors.headerTitle} />
+            </TouchableRipple>
+          ),
+          headerTitle: 'SENT REQUEST',
+          headerTitleStyle: {color: colors.headerTitle},
+        }}
+      />
+      <profStack.Screen
+        name="ReceivedRequest"
+        component={ReceivedRequest}
+        options={{
+          headerStyle: {
+            height: 60,
+            backgroundColor: colors.primary,
+          },
+          headerLeft: () => (
+            <TouchableRipple
+              style={{marginLeft: 5}}
+              onPress={() => navigation.openDrawer()}>
+              <Feather name="menu" size={30} color={colors.headerTitle} />
+            </TouchableRipple>
+          ),
+          headerTitle: 'RECEIVED REQUEST',
+          headerTitleStyle: {color: colors.headerTitle},
+        }}
+      />
+      <profStack.Screen
+        name="DonationHistory"
+        component={DonationHistory}
+        options={{
+          headerStyle: {
+            height: 60,
+            backgroundColor: colors.primary,
+          },
+          headerLeft: () => (
+            <TouchableRipple
+              style={{marginLeft: 5}}
+              onPress={() => navigation.openDrawer()}>
+              <Feather name="menu" size={30} color={colors.headerTitle} />
+            </TouchableRipple>
+          ),
+          headerTitle: 'DONATION HISTORY',
+          headerTitleStyle: {color: colors.headerTitle},
+        }}
+      />
+      <profStack.Screen
+        name="AccountSetting"
+        component={AccountSetting}
+        options={{
+          headerStyle: {
+            height: 60,
+            backgroundColor: colors.primary,
+          },
+          headerLeft: () => (
+            <TouchableRipple
+              style={{marginLeft: 5}}
+              onPress={() => navigation.openDrawer()}>
+              <Feather name="menu" size={30} color={colors.headerTitle} />
+            </TouchableRipple>
+          ),
+          headerTitle: 'ACCOUNT SETTING',
+          headerTitleStyle: {color: colors.headerTitle},
         }}
       />
     </profStack.Navigator>

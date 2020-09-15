@@ -23,7 +23,9 @@ const RootStack = (props) => {
     const stringValue = await AsyncStorage.getItem('user');
     const jsonValue = stringValue != null ? JSON.parse(stringValue) : null;
     await dispatch(storeUser(jsonValue));
-    getDonors(jsonValue.token);
+    if (jsonValue) {
+      getDonors(jsonValue.token);
+    }
     const hasLocationPermission = requestLocationPermission();
     if (hasLocationPermission) {
       Geolocation.getCurrentPosition(

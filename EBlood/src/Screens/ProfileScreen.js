@@ -7,6 +7,7 @@ import {
   Modal,
   ScrollView,
   ToastAndroid,
+  FlatList,
 } from 'react-native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useTheme, Avatar, Caption, TextInput, Button} from 'react-native-paper';
@@ -22,6 +23,8 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 import AsyncStorage from '@react-native-community/async-storage';
+import {options} from '../Constants/options';
+import ProfileOptions from '../Components/ProfileOptions';
 const ProfileScreen = (props) => {
   const {user} = useSelector((state) => state.user);
   const [fullName, setfullName] = useState('');
@@ -46,36 +49,6 @@ const ProfileScreen = (props) => {
     setAvatar(user.avatar);
     setbloodGroup(user.bloodGroup);
   }, []);
-  useEffect(() => {
-    if (avatar != user.avatar) {
-      fetch(`${baseUrl}user/edit`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${user.token}`,
-        },
-        body: JSON.stringify({
-          fullName: fullName,
-          contact: contact,
-          age: age,
-          bloodGroup: bloodGroup,
-        }),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          try {
-            const value = JSON.stringify(
-              Object.assign(data, {token: user.token}),
-            );
-            AsyncStorage.setItem('user', value);
-            dispatch(updateUser(data));
-          } catch (e) {
-            console.log(e);
-          }
-        })
-        .catch((err) => console.log(err));
-    }
-  }, [avatar]);
 
   const uploadPic = async () => {
     setUploadLoading(true);
@@ -207,6 +180,13 @@ const ProfileScreen = (props) => {
               @{user.email.split('@')[0]}
             </Caption>
           )}
+        </View>
+        <View style={styles.option}>
+          <FlatList
+            data={options}
+            renderItem={({item}) => <ProfileOptions item={item} {...props} />}
+            keyExtractor={(item) => item.id}
+          />
         </View>
       </View>
       <Modal transparent visible={visible} onRequestClose={hideModal}>
@@ -386,5 +366,9 @@ const styles = StyleSheet.create({
   },
   cancelButton: {
     marginTop: 10,
+  },
+  option: {
+    width: wp('100%'),
+    marginTop: 20,
   },
 });
