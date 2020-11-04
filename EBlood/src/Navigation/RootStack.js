@@ -14,6 +14,7 @@ import {baseUrl} from '../Constants/urls';
 const RootStack = (props) => {
   const {user} = useSelector((state) => state.user);
   const [loading, setLoading] = useState(true);
+
   const dispatch = useDispatch();
   useEffect(() => {
     getUser();
@@ -54,7 +55,9 @@ const RootStack = (props) => {
       },
     })
       .then((res) => res.json())
-      .then((data) => dispatch(addDonor(data)))
+      .then((data) => {
+        dispatch(addDonor(data));
+      })
       .catch((err) => console.log(err));
   };
 
