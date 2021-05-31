@@ -1,1 +1,1 @@
-export const API_KEY = 'AIzaSyB00Btz4CarLjYP0caUhMWmncz_COrQB88';
+export const API_KEY = 'Add your cloudinary api_key';
